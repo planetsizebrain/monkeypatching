@@ -1,0 +1,1133 @@
+<ehcache
+	dynamicConfig="true"
+	monitoring="off"
+	name="liferay-multi-vm-clustered"
+	updateCheck="false"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="ehcache.xsd"
+>
+
+	<!--
+	Caches in this file can be clustered and are configured to be clustered.
+	-->
+
+	<cacheManagerPeerProviderFactory
+		class="com.liferay.portal.cache.ehcache.LiferayCacheManagerPeerProviderFactory"
+		properties="portalPropertyKey=ehcache.multi.vm.config.location.peerProviderProperties"
+		propertySeparator=","
+	/>
+	<cacheManagerPeerListenerFactory
+		class="net.sf.ehcache.distribution.RMICacheManagerPeerListenerFactory"
+	/>
+	<defaultCache
+		eternal="false"
+		maxElementsInMemory="10000"
+		overflowToDisk="false"
+		timeToIdleSeconds="600"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</defaultCache>
+
+	<!-- Entity cache -->
+
+	<cache
+		eternal="false"
+		maxElementsInMemory="10000"
+		name="com.liferay.portal.kernel.dao.orm.EntityCache"
+		overflowToDisk="false"
+		timeToIdleSeconds="600"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+		<bootstrapCacheLoaderFactory class="com.liferay.portal.cache.ehcache.LiferayBootstrapCacheLoaderFactory" />
+	</cache>
+	<cache
+		eternal="false"
+		maxElementsInMemory="100000"
+		name="com.liferay.portal.kernel.dao.orm.EntityCache.com.liferay.portal.model.impl.AccountImpl"
+		overflowToDisk="false"
+		timeToIdleSeconds="600"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+	<cache
+		eternal="false"
+		maxElementsInMemory="100000"
+		name="com.liferay.portal.kernel.dao.orm.EntityCache.com.liferay.portal.model.impl.ContactImpl"
+		overflowToDisk="false"
+		timeToIdleSeconds="600"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+	<!--
+		Last checked table size on 08/12/2015: 16558 groups
+		JMX results: 100320392 hits, 734901 misses, 10306 objectcount
+		Size is OK, but idle time is probably causing the misses: upping idle time to 1d
+	-->
+	<cache
+		eternal="false"
+		maxElementsInMemory="100000"
+		name="com.liferay.portal.kernel.dao.orm.EntityCache.com.liferay.portal.model.impl.GroupImpl"
+		overflowToDisk="false"
+		timeToIdleSeconds="86400"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+	<!--
+		Last checked table size on 08/12/2015: 5849 groups
+		JMX results: 100000 hits, 8500 misses, 2181 objectcount
+		Size is OK, but idle time is probably causing the misses: upping idle time to 1d
+	-->
+	<cache
+		eternal="false"
+		maxElementsInMemory="100000"
+		name="com.liferay.portal.kernel.dao.orm.EntityCache.com.liferay.portal.model.impl.PortletPreferencesImpl"
+		overflowToDisk="false"
+		timeToIdleSeconds="86400"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+	<cache
+		eternal="false"
+		maxElementsInMemory="100000"
+		name="com.liferay.portal.kernel.dao.orm.EntityCache.com.liferay.portal.model.impl.ResourceActionImpl"
+		overflowToDisk="false"
+		timeToIdleSeconds="600"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+	<!--
+		Last checked table size on 08/12/2015: 777192 resourcepermissions
+		JMX results: 460000 hits, 20500 misses, 11767 objectcount
+		Size is OK, but the idle time is probably causing the misses: upping idle time to 1d
+	-->
+	<cache
+		eternal="false"
+		maxElementsInMemory="1000000"
+		name="com.liferay.portal.kernel.dao.orm.EntityCache.com.liferay.portal.model.impl.ResourcePermissionImpl"
+		overflowToDisk="false"
+		timeToIdleSeconds="86400"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+	<!--
+		Last checked table size on 08/12/2015: 10822 users
+		JMX results: 570000 hits, 156018 misses, 10721 objectcount
+		Size is OK, but the idle time is probably causing the misses: upping idle time to 1d
+	-->
+	<cache
+		eternal="false"
+		maxElementsInMemory="100000"
+		name="com.liferay.portal.kernel.dao.orm.EntityCache.com.liferay.portal.model.impl.UserImpl"
+		overflowToDisk="false"
+		timeToIdleSeconds="86400"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+
+	<!--
+		Last checked table size on 08/12/2015: 29 expandocolumns
+		JMX results: 59000 hits, 0 misses???, 5 objectcount
+		Size is OK, but the idle time is probably causing the misses: upping idle time to 1d
+	-->
+	<cache
+		eternal="false"
+		maxElementsInMemory="10000"
+		name="com.liferay.portal.kernel.dao.orm.EntityCache.com.liferay.portlet.expando.model.impl.ExpandoColumnImpl"
+		overflowToDisk="false"
+		timeToIdleSeconds="86400"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+
+	<!--
+		Last checked table size on 08/12/2015: 5 expandotables
+		JMX results: 738940 hits, 975 misses, 28 objectcount
+		Size is OK, but the idle time is probably causing the misses: upping idle time to 1d
+	-->
+	<cache
+		eternal="false"
+		maxElementsInMemory="10000"
+		name="com.liferay.portal.kernel.dao.orm.EntityCache.com.liferay.portlet.expando.model.impl.ExpandoTableImpl"
+		overflowToDisk="false"
+		timeToIdleSeconds="86400"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+
+	<!--
+		Last checked table size on 08/12/2015: 5 expandotables
+		JMX results: 112000 hits, 725 misses, 10 objectcount
+		Size is OK, but the idle time is probably causing the misses: upping idle time to 1d
+	-->
+	<cache
+		eternal="false"
+		maxElementsInMemory="10000"
+		name="com.liferay.portal.kernel.dao.orm.FinderCache.com.liferay.portlet.expando.model.impl.ExpandoTableImpl"
+		overflowToDisk="false"
+		timeToIdleSeconds="86400"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+
+	<!--
+		Last checked table size on 08/12/2015: 4986158 expandovalues
+		JMX results: 1350000 hits, 36500 misses, 100000 objectcount
+		Size is not OK, but the idle time is probably causing misses too: upping size to 250000 and idle time to 1d
+	-->
+	<cache
+		eternal="false"
+		maxElementsInMemory="250000"
+		name="com.liferay.portal.kernel.dao.orm.EntityCache.com.liferay.portlet.expando.model.impl.ExpandoValueImpl"
+		overflowToDisk="false"
+		timeToIdleSeconds="86400"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+
+	<!-- FinderCache -->
+
+	<cache
+		eternal="false"
+		maxElementsInMemory="10000"
+		name="com.liferay.portal.kernel.dao.orm.FinderCache"
+		overflowToDisk="false"
+		timeToIdleSeconds="600"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+		<bootstrapCacheLoaderFactory class="com.liferay.portal.cache.ehcache.LiferayBootstrapCacheLoaderFactory" />
+	</cache>
+
+	<!--
+		Last checked table size on 08/12/2015: 16560 groups
+		JMX results: 100698745 hits, 738785 misses, 50000 objectcount
+		Size is not OK???, but the idle time is probably causing misses too: upping size to 100000 and idle time to 1d
+	-->
+	<cache
+		eternal="false"
+		maxElementsInMemory="100000"
+		name="com.liferay.portal.kernel.dao.orm.FinderCache.com.liferay.portal.model.impl.GroupImpl"
+		overflowToDisk="false"
+		timeToIdleSeconds="86400"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+	<cache
+		eternal="false"
+		maxElementsInMemory="50000"
+		name="com.liferay.portal.kernel.dao.orm.FinderCache.com.liferay.portal.model.impl.GroupImpl.List1"
+		overflowToDisk="false"
+		timeToIdleSeconds="600"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+	<cache
+		eternal="false"
+		maxElementsInMemory="50000"
+		name="com.liferay.portal.kernel.dao.orm.FinderCache.com.liferay.portal.model.impl.GroupImpl.List2"
+		overflowToDisk="false"
+		timeToIdleSeconds="600"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+	<cache
+		eternal="false"
+		maxElementsInMemory="10000"
+		name="com.liferay.portal.kernel.dao.orm.FinderCache.com.liferay.portal.model.impl.LayoutImpl"
+		overflowToDisk="false"
+		timeToIdleSeconds="600"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+	<cache
+		eternal="false"
+		maxElementsInMemory="10000"
+		name="com.liferay.portal.kernel.dao.orm.FinderCache.com.liferay.portal.model.impl.LayoutImpl.List1"
+		overflowToDisk="false"
+		timeToIdleSeconds="600"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+	<cache
+		eternal="false"
+		maxElementsInMemory="10000"
+		name="com.liferay.portal.kernel.dao.orm.FinderCache.com.liferay.portal.model.impl.LayoutImpl.List2"
+		overflowToDisk="false"
+		timeToIdleSeconds="600"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+
+	<!--
+		Last checked table size on 08/12/2015: 16560 portletpreferences
+		JMX results: 100698745 hits, 738785 misses, 50000 objectcount
+		Size is OK, but the idle time is probably causing the misses: upping idle time to 1d
+	-->
+	<cache
+		eternal="false"
+		maxElementsInMemory="100000"
+		name="com.liferay.portal.kernel.dao.orm.FinderCache.com.liferay.portal.model.impl.PortletPreferencesImpl"
+		overflowToDisk="false"
+		timeToIdleSeconds="86400"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+	<cache
+		eternal="false"
+		maxElementsInMemory="100000"
+		name="com.liferay.portal.kernel.dao.orm.FinderCache.com.liferay.portal.model.impl.PortletPreferencesImpl.List1"
+		overflowToDisk="false"
+		timeToIdleSeconds="600"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+
+	<!--
+		Last checked table size on 08/12/2015: 16560 portletpreferences
+		JMX results: 65000 hits, 12250 misses, 228 objectcount
+		Size is OK, but the idle time is probably causing the misses: upping idle time to 1d
+	-->
+	<cache
+		eternal="false"
+		maxElementsInMemory="100000"
+		name="com.liferay.portal.kernel.dao.orm.FinderCache.com.liferay.portal.model.impl.PortletPreferencesImpl.List2"
+		overflowToDisk="false"
+		timeToIdleSeconds="86400"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+	<cache
+		eternal="false"
+		maxElementsInMemory="100000"
+		name="com.liferay.portal.kernel.dao.orm.FinderCache.com.liferay.portal.model.impl.ResourceActionImpl"
+		overflowToDisk="false"
+		timeToIdleSeconds="600"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+	<cache
+		eternal="false"
+		maxElementsInMemory="100000"
+		name="com.liferay.portal.kernel.dao.orm.FinderCache.com.liferay.portal.model.impl.ResourceActionImpl.List1"
+		overflowToDisk="false"
+		timeToIdleSeconds="600"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+	<cache
+		eternal="false"
+		maxElementsInMemory="100000"
+		name="com.liferay.portal.kernel.dao.orm.FinderCache.com.liferay.portal.model.impl.ResourceActionImpl.List2"
+		overflowToDisk="false"
+		timeToIdleSeconds="600"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+
+	<!--
+		Last checked table size on 08/12/2015: 777300 resourcepermissions
+		JMX results: 675000 hits, 65000 misses, 27834 objectcount
+		Size is OK, but the idle time is probably causing misses: upping idle time to 1d
+	-->
+	<cache
+		eternal="false"
+		maxElementsInMemory="100000"
+		name="com.liferay.portal.kernel.dao.orm.FinderCache.com.liferay.portal.model.impl.ResourcePermissionImpl"
+		overflowToDisk="false"
+		timeToIdleSeconds="86400"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+
+	<!--
+		Last checked table size on 08/12/2015: 777300 resourcepermissions
+		JMX results: 587899 hits, 195137 misses, 269 objectcount
+		Size is OK, but the idle time is probably causing misses: upping idle time to 1d
+	-->
+	<cache
+		eternal="false"
+		maxElementsInMemory="100000"
+		name="com.liferay.portal.kernel.dao.orm.FinderCache.com.liferay.portal.model.impl.ResourcePermissionImpl.List1"
+		overflowToDisk="false"
+		timeToIdleSeconds="86400"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+
+	<!--
+		Last checked table size on 08/12/2015: 777300 resourcepermissions
+		JMX results: 340000 hits, 31000 misses, 69 objectcount
+		Size is OK, but the idle time is probably causing misses: upping idle time to 1d
+	-->
+	<cache
+		eternal="false"
+		maxElementsInMemory="100000"
+		name="com.liferay.portal.kernel.dao.orm.FinderCache.com.liferay.portal.model.impl.ResourcePermissionImpl.List2"
+		overflowToDisk="false"
+		timeToIdleSeconds="86400"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+
+	<!--
+		Last checked table size on 08/12/2015: 29 expandocolumns
+		JMX results: 345000 hits, 2150 misses, 28 objectcount
+		Size is OK, but the idle time is probably causing the misses: upping idle time to 1d
+	-->
+	<cache
+		eternal="false"
+		maxElementsInMemory="10000"
+		name="com.liferay.portal.kernel.dao.orm.FinderCache.com.liferay.portlet.expando.model.impl.ExpandoColumnImpl"
+		overflowToDisk="false"
+		timeToIdleSeconds="86400"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+	<cache
+		eternal="false"
+		maxElementsInMemory="10000"
+		name="com.liferay.portal.kernel.dao.orm.FinderCache.com.liferay.portlet.expando.model.impl.ExpandoColumnImpl.List1"
+		overflowToDisk="false"
+		timeToIdleSeconds="600"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+	<cache
+		eternal="false"
+		maxElementsInMemory="10000"
+		name="com.liferay.portal.kernel.dao.orm.FinderCache.com.liferay.portlet.expando.model.impl.ExpandoColumnImpl.List2"
+		overflowToDisk="false"
+		timeToIdleSeconds="600"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+	<!--
+		Last checked table size on 08/12/2015: 4985247 expandovalues
+		JMX results: 1591705 hits, 992014 misses, 99998 objectcount
+		Size is too small, but the idle time is probably also causing some misses: upping size to 1000000 and upping idle time to 1d
+	-->
+	<cache
+		eternal="false"
+		maxElementsInMemory="1000000"
+		name="com.liferay.portal.kernel.dao.orm.FinderCache.com.liferay.portlet.expando.model.impl.ExpandoValueImpl"
+		overflowToDisk="false"
+		timeToIdleSeconds="86400"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+	<cache
+		eternal="false"
+		maxElementsInMemory="100000"
+		name="com.liferay.portal.kernel.dao.orm.FinderCache.com.liferay.portlet.expando.model.impl.ExpandoValueImpl.List1"
+		overflowToDisk="false"
+		timeToIdleSeconds="600"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+	<cache
+		eternal="false"
+		maxElementsInMemory="100000"
+		name="com.liferay.portal.kernel.dao.orm.FinderCache.com.liferay.portlet.expando.model.impl.ExpandoValueImpl.List2"
+		overflowToDisk="false"
+		timeToIdleSeconds="600"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+	<cache
+		eternal="false"
+		maxElementsInMemory="200000"
+		name="com.liferay.portal.kernel.dao.orm.FinderCache.Users_Orgs"
+		overflowToDisk="false"
+		timeToIdleSeconds="600"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+	<cache
+		eternal="false"
+		maxElementsInMemory="200000"
+		name="com.liferay.portal.kernel.dao.orm.FinderCache.Users_Roles"
+		overflowToDisk="false"
+		timeToIdleSeconds="600"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+
+	<!-- Other -->
+
+	<!--
+		JMX results: 4009307 hits, 636560 misses, 119 objectcount
+		Size is OK, but idle time is probably causing the misses: upping idle time to 1d
+	-->
+	<cache
+		eternal="false"
+		maxElementsInMemory="100000"
+		name="com.liferay.portal.security.permission.PermissionCacheUtil_PERMISSION"
+		overflowToDisk="false"
+		timeToIdleSeconds="86400"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+
+	<!--
+		JMX results: 660000 hits, 42000 misses, 6 objectcount
+		Size is OK, but idle time is probably causing the misses: upping idle time to 1d
+	-->
+	<cache
+		eternal="false"
+		maxElementsInMemory="100000"
+		name="com.liferay.portal.security.permission.PermissionCacheUtil_PERMISSION_CHECKER_BAG"
+		overflowToDisk="false"
+		timeToIdleSeconds="86400"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+	<cache
+		eternal="false"
+		maxElementsInMemory="100000"
+		name="com.liferay.portal.security.permission.PermissionCacheUtil_RESOURCE_BLOCK_IDS_BAG"
+		overflowToDisk="false"
+		timeToIdleSeconds="600"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+	<cache
+		eternal="true"
+		maxElementsInMemory="0"
+		name="com.liferay.portal.service.impl.PortletLocalServiceImpl"
+		overflowToDisk="false"
+		timeToIdleSeconds="0"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+	<cache
+		eternal="false"
+		maxElementsInMemory="100000"
+		name="com.liferay.portal.service.impl.PortletPreferencesLocalUtil"
+		overflowToDisk="false"
+		timeToIdleSeconds="600"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+	<cache
+		eternal="false"
+		maxElementsInMemory="10000"
+		name="com.liferay.portal.servlet.filters.cache.CacheUtil"
+		overflowToDisk="false"
+		timeToIdleSeconds="600"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+	<cache
+		eternal="false"
+		maxElementsInMemory="10000"
+		name="com.liferay.portal.webserver.WebServerServletToken"
+		overflowToDisk="false"
+		timeToIdleSeconds="600"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+
+	<!--
+		Last checked table size on 08/12/2015: 1 article
+		JMX results: 1850 hits, 2150 misses, 1 objectcount
+		Size is OK, but idle time is probably causing the misses: upping idle time to 1d
+	-->
+	<cache
+		eternal="false"
+		maxElementsInMemory="10000"
+		name="com.liferay.portlet.journalcontent.util.JournalContent"
+		overflowToDisk="false"
+		timeToIdleSeconds="86400"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+	<cache
+		eternal="false"
+		maxElementsInMemory="10000"
+		name="com.liferay.portlet.social.service.impl.SocialActivitySettingLocalServiceImpl"
+		overflowToDisk="false"
+		timeToIdleSeconds="600"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+
+	<!--
+		Additional caches added after JMX monitoring. These all didn't have a specific cache
+		configured yet and so fell back to the default cache configuration.
+	-->
+
+	<!--
+		Last checked table size on 08/12/2015: 5724 organizations
+		JMX results: 5428568 hits, 415875 misses, 5837 objectcount
+		Size is OK, but idle time is probably causing the misses: upping idle time to 1d
+	-->
+	<cache
+		eternal="false"
+		maxElementsInMemory="10000"
+		name="com.liferay.portal.kernel.dao.orm.EntityCache.com.liferay.portal.model.impl.OrganizationImpl"
+		overflowToDisk="false"
+		timeToIdleSeconds="86400"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+
+	<!--
+		Last checked table size on 08/12/2015: 5724 organizations
+		JMX results: 28000 hits, 4500 misses, 5768 objectcount
+		Size is OK, but idle time is probably causing the misses: upping idle time to 1d
+	-->
+	<cache
+		eternal="false"
+		maxElementsInMemory="10000"
+		name="com.liferay.portal.kernel.dao.orm.FinderCache.com.liferay.portal.model.impl.OrganizationImpl"
+		overflowToDisk="false"
+		timeToIdleSeconds="86400"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+
+	<!--
+		Last checked table size on 08/12/2015: 144 roles
+		JMX results: 5701125 hits, 18540 misses
+		Size is OK, but idle time is probably causing the misses: upping idle time to 1d
+	-->
+	<cache
+		eternal="false"
+		maxElementsInMemory="1000"
+		name="com.liferay.portal.kernel.dao.orm.EntityCache.com.liferay.portal.model.impl.RoleImpl"
+		overflowToDisk="false"
+		timeToIdleSeconds="86400"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+
+	<!--
+		Last checked table size on 08/12/2015: 144 roles
+		JMX results: 235000 hits, 3650 misses, 291 objectcount
+		Size is OK, but idle time is probably causing the misses: upping idle time to 1d
+	-->
+	<cache
+		eternal="false"
+		maxElementsInMemory="1000"
+		name="com.liferay.portal.kernel.dao.orm.FinderCache.com.liferay.portal.model.impl.RoleImpl"
+		overflowToDisk="false"
+		timeToIdleSeconds="86400"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+
+	<!--
+		Last checked table size on 08/12/2015: 428048 usergrouproles
+		JMX results: 11727544 hits, 180903 misses, 9820 objectcount
+		Size is too small, but the objectcount also suggest idle time is probably causing some misses: upping size to 25000 and idle time to 1d
+	-->
+	<cache
+		eternal="false"
+		maxElementsInMemory="25000"
+		name="com.liferay.portal.kernel.dao.orm.EntityCache.com.liferay.portal.model.impl.UserGroupRoleImpl"
+		overflowToDisk="false"
+		timeToIdleSeconds="86400"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+
+	<!--
+		Last checked table size on 08/12/2015: 36 repositories???
+		JMX results: 24527 hits, 9601 misses, 2817 objectcount
+		Size is OK, but the idle time is probably causing some misses: lowering size to 5000 and upping idle time to 1d
+	-->
+	<cache
+		eternal="false"
+		maxElementsInMemory="5000"
+		name="com.liferay.portal.kernel.dao.orm.EntityCache.com.liferay.portal.model.impl.RepositoryImpl"
+		overflowToDisk="false"
+		timeToIdleSeconds="86400"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+
+	<!--
+		Last checked table size on 08/12/2015: 33120 layoutsets
+		JMX results: 1107274 hits, 0 misses???, 7766 objectcount
+		Size is OK, but the idle time is probably causing some misses that aren't show in JMX: upping idle time to 1d
+	-->
+	<cache
+		eternal="false"
+		maxElementsInMemory="10000"
+		name="com.liferay.portal.kernel.dao.orm.EntityCache.com.liferay.portal.model.impl.LayoutSetImpl"
+		overflowToDisk="false"
+		timeToIdleSeconds="86400"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+
+	<!--
+		Last checked table size on 08/12/2015: 33120 layoutsets
+		JMX results: 1066288 hits, 35200 misses, 7766 objectcount
+		Size is OK, but the idle time is probably causing some misses that aren't show in JMX: upping idle time to 1d
+	-->
+	<cache
+		eternal="false"
+		maxElementsInMemory="10000"
+		name="com.liferay.portal.kernel.dao.orm.FinderCache.com.liferay.portal.model.impl.LayoutSetImpl"
+		overflowToDisk="false"
+		timeToIdleSeconds="86400"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+
+	<!--
+		Last checked table size on 08/12/2015: 761531 assetentries
+		JMX results: 15000 hits, 0 misses???, 7923 objectcount
+		Size is OK, but the idle time is probably causing some misses that aren't show in JMX: upping idle time to 1d
+	-->
+	<cache
+		eternal="false"
+		maxElementsInMemory="10000"
+		name="com.liferay.portal.kernel.dao.orm.EntityCache.com.liferay.portlet.asset.model.impl.AssetEntryImpl"
+		overflowToDisk="false"
+		timeToIdleSeconds="86400"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+
+	<!--
+		Last checked table size on 08/12/2015: 372453 dlfileentries
+		JMX results: 125981 hits, 57550 misses, 10000 objectcount
+		Size is not OK, but the idle time is probably causing some misses too: upping size to 50000 and idle time to 1d
+	-->
+	<cache
+		eternal="false"
+		maxElementsInMemory="50000"
+		name="com.liferay.portal.kernel.dao.orm.EntityCache.com.liferay.portlet.documentlibrary.model.impl.DLFileEntryImpl"
+		overflowToDisk="false"
+		timeToIdleSeconds="86400"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+
+	<!--
+		Last checked table size on 08/12/2015: 372453 dlfileentries
+		JMX results: 7719 hits, 16664 misses, 9916 objectcount
+		Size is not OK, but the idle time is probably causing some misses too: upping size to 50000 and idle time to 1d
+	-->
+	<cache
+		eternal="false"
+		maxElementsInMemory="50000"
+		name="com.liferay.portal.kernel.dao.orm.FinderCache.com.liferay.portlet.documentlibrary.model.impl.DLFileEntryImpl"
+		overflowToDisk="false"
+		timeToIdleSeconds="86400"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+
+	<!--
+		Last checked table size on 08/12/2015: 372845 dlfileentrymetadatas
+		JMX results: 10701 hits, 3012 misses, 4847 objectcount
+		Size is OK, but the idle time is probably causing the misses: upping idle time to 1d
+	-->
+	<cache
+		eternal="false"
+		maxElementsInMemory="10000"
+		name="com.liferay.portal.kernel.dao.orm.EntityCache.com.liferay.portlet.documentlibrary.model.impl.DLFileEntryMetadataImpl"
+		overflowToDisk="false"
+		timeToIdleSeconds="86400"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+
+	<!--
+		Last checked table size on 08/12/2015: 372765 dlfileversions
+		JMX results: 125934 hits, 3683 misses, 10000 objectcount
+		Size is not OK, but the idle time is probably causing misses too: upping size to 50000 and idle time to 1d
+	-->
+	<cache
+		eternal="false"
+		maxElementsInMemory="50000"
+		name="com.liferay.portal.kernel.dao.orm.EntityCache.com.liferay.portlet.documentlibrary.model.impl.DLFileVersionImpl"
+		overflowToDisk="false"
+		timeToIdleSeconds="86400"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+
+	<!--
+		Last checked table size on 08/12/2015: 383714 expandorows
+		JMX results: 5709 hits, 1812 misses, 4597 objectcount
+		Size is OK, but the idle time is probably causing misses: upping idle time to 1d
+	-->
+	<cache
+		eternal="false"
+		maxElementsInMemory="10000"
+		name="com.liferay.portal.kernel.dao.orm.EntityCache.com.liferay.portlet.expando.model.impl.ExpandoRowImpl"
+		overflowToDisk="false"
+		timeToIdleSeconds="86400"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+
+	<!--
+		Last checked table size on 08/12/2015: 383714 expandorows
+		JMX results: 5845 hits, 33372 misses, 4612 objectcount
+		Size is OK, but the idle time is probably causing misses: upping idle time to 1d
+	-->
+	<cache
+		eternal="false"
+		maxElementsInMemory="10000"
+		name="com.liferay.portal.kernel.dao.orm.FinderCache.com.liferay.portlet.expando.model.impl.ExpandoRowImpl"
+		overflowToDisk="false"
+		timeToIdleSeconds="86400"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+
+	<!--
+		Last checked table size on 08/12/2015: 0 locks???
+		JMX results: 2445 hits, 12331 misses, 7005 objectcount
+		Size is OK, but the idle time is probably causing misses: upping idle time to 1d
+	-->
+	<cache
+		eternal="false"
+		maxElementsInMemory="10000"
+		name="com.liferay.portal.kernel.dao.orm.FinderCache.com.liferay.portal.model.impl.LockImpl"
+		overflowToDisk="false"
+		timeToIdleSeconds="86400"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+
+	<!--
+		Last checked table size on 08/12/2015: 10824 users
+		JMX results: 6700 hits, 4700 misses, 9991 objectcount
+		Size is not OK, but the idle time is probably causing misses: upping size to 15000 and idle time to 1d
+	-->
+	<cache
+		eternal="false"
+		maxElementsInMemory="15000"
+		name="com.liferay.portal.kernel.dao.orm.FinderCache.com.liferay.portal.model.impl.UserImpl"
+		overflowToDisk="false"
+		timeToIdleSeconds="86400"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+
+	<!--
+		Last checked table size on 08/12/2015: 761531 assetentries
+		JMX results: 20914 hits, 30289 misses, 9999 objectcount
+		Size is not OK, but the idle time is probably causing misses: upping size to 50000 and idle time to 1d
+	-->
+	<cache
+		eternal="false"
+		maxElementsInMemory="50000"
+		name="com.liferay.portal.kernel.dao.orm.FinderCache.com.liferay.portlet.asset.model.impl.AssetEntryImpl"
+		overflowToDisk="false"
+		timeToIdleSeconds="86400"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+
+	<!--
+		Last checked table size on 08/12/2015: 372765 dlfileversions
+		JMX results: 121013 hits, 58039 misses, 10000 objectcount
+		Size is not OK, but the idle time is probably causing misses too: upping size to 50000 and idle time to 1d
+	-->
+	<cache
+		eternal="false"
+		maxElementsInMemory="50000"
+		name="com.liferay.portal.kernel.dao.orm.FinderCache.com.liferay.portlet.documentlibrary.model.impl.DLFileVersionImpl"
+		overflowToDisk="false"
+		timeToIdleSeconds="86400"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+
+	<!--
+		Custom InstitutionFunctions caches
+	-->
+	<cache
+		eternal="false"
+		maxElementsInMemory="7500"
+		name="be.vlaanderen.service.institution.InstitutionFunctions.FULL_IDENTIFIERS"
+		overflowToDisk="false"
+		timeToIdleSeconds="86400"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+	<cache
+		eternal="false"
+		maxElementsInMemory="7500"
+		name="be.vlaanderen.service.institution.InstitutionFunctions.NUMBER_NAME_IDENTIFIERS"
+		overflowToDisk="false"
+		timeToIdleSeconds="86400"
+	>
+		<cacheEventListenerFactory
+			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			propertySeparator=","
+		/>
+	</cache>
+
+</ehcache>

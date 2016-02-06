@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>be.planetsizebrain.liferay</groupId>
+		<artifactId>monkeypatching-example</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>portal-impl-overlay</artifactId>
+	<name>Portal Impl JAR overlay</name>
+	<description>Portal Impl JAR overlay</description>
+	<packaging>jar</packaging>
+
+	<build>
+		<finalName>portal-impl</finalName>
+		<plugins>
+			<!--
+				We're creating a patched portal-impl.jar here to fix some Liferay bugs:
+
+					- Include an overlayed util-taglib.jar that will be used by the deployer
+
+				http://blog.iprofs.nl/2012/04/16/patching-open-source-java-software-with-maven/
+			-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>unpack</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>unpack</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>com.liferay.portal</groupId>
+									<artifactId>portal-impl</artifactId>
+									<version>${liferay.version}</version>
+									<type>jar</type>
+									<overWrite>true</overWrite>
+									<outputDirectory>${project.build.directory}/classes</outputDirectory>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+					<execution>
+						<id>copy-overlay</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>be.planetsizebrain.liferay</groupId>
+									<artifactId>util-taglib-overlay</artifactId>
+									<outputDirectory>${project.build.directory}/classes/com/liferay/portal/deploy/dependencies</outputDirectory>
+									<destFileName>util-taglib.jar</destFileName>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.liferay.portal</groupId>
+			<artifactId>portal-impl</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.liferay.portal</groupId>
+			<artifactId>portal-service</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>be.planetsizebrain.liferay</groupId>
+			<artifactId>util-taglib-overlay</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.pdfbox</groupId>
+			<artifactId>pdfbox</artifactId>
+		</dependency>
+	</dependencies>
+
+</project>

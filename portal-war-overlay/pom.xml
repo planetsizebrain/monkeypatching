@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>be.planetsizebrain.liferay</groupId>
+		<artifactId>monkeypatching-example</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>portal-war-overlay</artifactId>
+    <name>Portal WAR overlay</name>
+    <description>Portal WAR overlay</description>
+    <packaging>war</packaging>
+
+	<build>
+        <finalName>portal-web</finalName>
+		<plugins>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<warName>${project.build.finalName}</warName>
+					<outputFileNameMapping>@{artifactId}@.@{extension}@</outputFileNameMapping>
+					<overlays>
+						<overlay>
+							<groupId>com.liferay.portal</groupId>
+							<artifactId>portal-web</artifactId>
+							<!--
+								Here you can define exclusions.
+								e.g.: in case your OS/JVM already provides the JAI jars
+								or any Liferay JARs for which we have a patched overlay.
+							-->
+							<excludes>
+								<!-- Are already provided by the OS -->
+								<exclude>WEB-INF/lib/jai_core.jar</exclude>
+								<exclude>WEB-INF/lib/jai_codec.jar</exclude>
+								<!-- Use own custom overlays -->
+								<exclude>WEB-INF/lib/portal-impl.jar</exclude>
+								<exclude>WEB-INF/lib/util-taglib.jar</exclude>
+							</excludes>
+						</overlay>
+					</overlays>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-overlay</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<!--
+								Here we need to define any patched overlay JARs that we've excluded above.
+							-->
+							<artifactItems>
+								<artifactItem>
+									<groupId>be.planetsizebrain.liferay</groupId>
+									<artifactId>portal-impl-overlay</artifactId>
+									<outputDirectory>${project.build.directory}/portal-web/WEB-INF/lib</outputDirectory>
+									<destFileName>portal-impl.jar</destFileName>
+								</artifactItem>
+								<artifactItem>
+									<groupId>be.planetsizebrain.liferay</groupId>
+									<artifactId>util-taglib-overlay</artifactId>
+									<outputDirectory>${project.build.directory}/portal-web/WEB-INF/lib</outputDirectory>
+									<destFileName>util-taglib.jar</destFileName>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+    </build>
+
+	<dependencies>
+		<dependency>
+            <groupId>com.liferay.portal</groupId>
+            <artifactId>portal-web</artifactId>
+            <!-- Include a specific version of Liferay with a release -->
+            <version>${liferay.version}</version>
+            <type>war</type>
+            <scope>runtime</scope>
+        </dependency>
+		<dependency>
+			<groupId>com.liferay.portal</groupId>
+			<artifactId>portal-impl</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		 <dependency>
+            <groupId>com.liferay.portal</groupId>
+            <artifactId>portal-service</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+		<dependency>
+			<groupId>be.planetsizebrain.liferay</groupId>
+			<artifactId>portal-impl-overlay</artifactId>
+		</dependency>
+		<dependency>
+            <groupId>be.planetsizebrain.liferay</groupId>
+            <artifactId>portal-service-overlay</artifactId>
+        </dependency>
+		<dependency>
+			<groupId>be.planetsizebrain.liferay</groupId>
+			<artifactId>util-taglib-overlay</artifactId>
+		</dependency>
+
+		<!-- Servlet/Portlet dependencies -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.portlet</groupId>
+			<artifactId>portlet-api</artifactId>
+		</dependency>
+
+		<!--
+			Any other dependencies that are needed to make your patched classes compile.
+			If these JARs are already in the WAR and you don't want to replace or accidentally
+			duplicate them be sure to set the scope here as 'provided'. Any dependency without
+			this scope will be add, so this mechanism can be used to add JARs to the Liferay
+			WAR like for example the correct Xuggler JAR.
+		-->
+		<dependency>
+            <groupId>net.sf.ehcache.internal</groupId>
+            <artifactId>ehcache-core</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>xuggle</groupId>
+            <artifactId>xuggler-linux-64</artifactId>
+        </dependency>
+
+	</dependencies>
+</project>

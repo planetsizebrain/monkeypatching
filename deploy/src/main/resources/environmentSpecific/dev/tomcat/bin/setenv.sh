@@ -1,0 +1,1 @@
+CATALINA_OPTS="$CATALINA_OPTS -Dfile.encoding=UTF8 -Dorg.apache.el.parser.COERCE_TO_ZERO=false -Djava.net.preferIPv4Stack=true -Dorg.apache.catalina.loader.WebappClassLoader.ENABLE_CLEAR_REFERENCES=false -Duser.timezone=GMT -server -d64 -Xms4096m -Xmx4096m -XX:PermSize=1024m -XX:MaxPermSize=1024m"

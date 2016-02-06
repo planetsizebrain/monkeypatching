@@ -1,0 +1,5 @@
+# Configure cluster nodes
+LOCAL_IP=`hostname -i`
+CATALINA_OPTS="$CATALINA_OPTS -Djgroups.bind_addr=$LOCAL_IP -Djgroups.tcpping.initial_hosts=10.11.12.10[7800],10.11.12.11[7800]"
+
+CATALINA_OPTS="$CATALINA_OPTS -DauditLogDir=/opt/liferay/auditLogs -Dfile.encoding=UTF8 -Dorg.apache.el.parser.COERCE_TO_ZERO=false -Djava.net.preferIPv4Stack=true -Dorg.apache.catalina.loader.WebappClassLoader.ENABLE_CLEAR_REFERENCES=false -Duser.timezone=GMT -server -d64 -XX:NewSize=3072m -XX:MaxNewSize=3072m -Xms8144m -Xmx8144m -XX:PermSize=1536m -XX:MaxPermSize=1536m -XX:SurvivorRatio=65536 -XX:TargetSurvivorRatio=0 -XX:MaxTenuringThreshold=0 -XX:+UseParNewGC -XX:ParallelGCThreads=2 -XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled -XX:+CMSCompactWhenClearAllSoftRefs -XX:CMSInitiatingOccupancyFraction=85 -XX:+CMSScavengeBeforeRemark -XX:+CMSConcurrentMTEnabled -XX:ParallelCMSThreads=2 -XX:+UseCompressedOops -XX:+DisableExplicitGC -XX:-UseBiasedLocking -XX:+BindGCTaskThreadsToCPUs -XX:+UseFastAccessorMethods"
